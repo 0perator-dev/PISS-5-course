@@ -40,6 +40,11 @@ public class User {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Announcement> announcements;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Set<Comment> comments;
+
     public Long getId() {
         return id;
     }
@@ -72,4 +77,27 @@ public class User {
         this.name = name;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public Set<Announcement> getAnnouncements() {
+        return announcements;
+    }
+
+    public void setAnnouncements(Set<Announcement> announcements) {
+        this.announcements = announcements;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
 }
