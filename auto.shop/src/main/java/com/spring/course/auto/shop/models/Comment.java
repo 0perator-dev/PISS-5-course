@@ -15,12 +15,10 @@ public class Comment {
     @ManyToOne(cascade = CascadeType.REMOVE)
     @MapsId("userId")
     @OrderBy("id DESC")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @MapsId("announcementId")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @OrderBy("id DESC")
     private Announcement announcement;
 
