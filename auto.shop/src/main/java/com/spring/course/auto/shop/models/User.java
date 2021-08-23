@@ -1,6 +1,7 @@
 package com.spring.course.auto.shop.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -11,6 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
+@Builder
 public class User {
     @Id
     @Column(name = "id", nullable = false)
@@ -29,7 +31,8 @@ public class User {
     @Size(max = 60)
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+/*    @ManyToMany(fetch = FetchType.LAZY)*/
+    @ManyToMany
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -44,6 +47,19 @@ public class User {
     @OneToMany(mappedBy = "user")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Comment> comments;
+
+    public User() {
+    }
+
+    public User(Long id, @Size(max = 50) String username, @Size(max = 60) String password, @Size(max = 60) String name, Set<Role> roles, Set<Announcement> announcements, Set<Comment> comments) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.roles = roles;
+        this.announcements = announcements;
+        this.comments = comments;
+    }
 
     public Long getId() {
         return id;

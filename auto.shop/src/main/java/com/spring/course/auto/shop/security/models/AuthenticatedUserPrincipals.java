@@ -42,8 +42,8 @@ public class AuthenticatedUserPrincipals implements UserDetails {
         return new AuthenticatedUserPrincipals(
                 user.getId(),
                 user.getUsername(),
-                user.getName(),
                 user.getPassword(),
+                user.getName(),
                 authorities);
     }
 
@@ -87,7 +87,7 @@ public class AuthenticatedUserPrincipals implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     @Override
