@@ -14,5 +14,6 @@ import java.util.List;
 public class QueryResponse<T> {
     private int pageSize;
     private int page;
+    private int totalPages;
     private List<T> values;
 }

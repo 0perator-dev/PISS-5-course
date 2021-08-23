@@ -5,7 +5,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -17,18 +16,15 @@ public class Announcement {
     private Long id;
 
     @Column(nullable = false, length = 60)
-    @Size(max = 60)
     private String title;
 
-    @Column(nullable = false)
-    @Size(max = 255)
+    @Column
     private String description;
 
     @ManyToOne()
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "announcement")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Comment> comments;
