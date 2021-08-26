@@ -1,0 +1,19 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    "rules": {
+        "no-console": {
+            "severity": "warning",
+            "options": ["debug", "info", "log", "time", "timeEnd", "trace"]
+        },
+        "quotemark": [true, "double"],
+        "no-consecutive-blank-lines": true,
+        "indent": [true, "spaces", 4],
+        "import-spacing": true,
+        "eofline": true
+    },
+    "rulesDirectory": []
+}
