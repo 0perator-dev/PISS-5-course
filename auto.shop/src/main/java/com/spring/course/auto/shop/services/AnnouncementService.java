@@ -25,7 +25,7 @@ public class AnnouncementService {
                 .orElseThrow(() -> new NoSuchElementException("Can't find Announcement with id" + id));
     }
 
-    public void post(Announcement announcement) {
+    public void post(@NotNull Announcement announcement) {
         Announcement savedAnnouncement = this.announcementRepository.save(announcement);
     }
 

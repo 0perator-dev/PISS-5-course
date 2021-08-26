@@ -78,7 +78,7 @@ public class AnnouncementController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<?> put(@PathVariable Long id, @Valid @NotNull @RequestBody AnnouncementEntity entity) {
+    public ResponseEntity<?> put(@Valid @NotNull @RequestBody AnnouncementEntity entity) {
         Announcement announcement = this.mappingManager.mapToAnnouncement(entity);
 
         try {

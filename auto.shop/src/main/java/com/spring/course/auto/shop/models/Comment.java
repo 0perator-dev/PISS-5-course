@@ -1,69 +1,28 @@
 package com.spring.course.auto.shop.models;
 
-import com.spring.course.auto.shop.models.ids.CommentId;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import lombok.Data;
 
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "comments")
 public class Comment {
-    @EmbeddedId
-    private CommentId id = new CommentId();
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Long id;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @MapsId("userId")
+    @ManyToOne
+    @JoinColumn(columnDefinition = "user_id")
     @OrderBy("id DESC")
     private User user;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @MapsId("announcementId")
+    @ManyToOne
+    @JoinColumn(columnDefinition = "announcement_id")
     @OrderBy("id DESC")
     private Announcement announcement;
 
     @Column(name = "message")
     private String message;
-
-    public Comment(CommentId id, User user, Announcement announcement, String message) {
-        this.id = id;
-        this.user = user;
-        this.announcement = announcement;
-        this.message = message;
-    }
-
-    public Comment() {
-    }
-
-    public CommentId getId() {
-        return id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public Announcement getAnnouncement() {
-        return announcement;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setId(CommentId id) {
-        this.id = id;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setAnnouncement(Announcement announcement) {
-        this.announcement = announcement;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }
