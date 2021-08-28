@@ -18,20 +18,21 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Comment {
-    @EmbeddedId
-    private CommentId id = new CommentId();
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Long id;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @MapsId("userId")
+    @ManyToOne
+    @JoinColumn(columnDefinition = "user_id")
     @OrderBy("id DESC")
     private User user;
 
-    @Column(name = "message")
-    private String message;
-
-    @JsonBackReference
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @MapsId("announcementId")
+    @ManyToOne
+    @JoinColumn(columnDefinition = "announcement_id")
     @OrderBy("id DESC")
     private Announcement announcement;
+
+    @Column(name = "message")
+    private String message;
 }

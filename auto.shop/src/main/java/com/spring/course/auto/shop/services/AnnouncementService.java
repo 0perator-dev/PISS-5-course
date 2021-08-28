@@ -39,7 +39,7 @@ public class AnnouncementService {
                 .orElseThrow(() -> new NoSuchElementException("Can't find Announcement with id" + id));
     }
 
-    public void post(AnnouncementEntity announcementEntity, MultipartFile[] files) throws IOException {
+    public void post(@NotNull AnnouncementEntity announcementEntity, MultipartFile[] files) throws IOException {
         Announcement announcement = this.mappingManager.mapToAnnouncement(announcementEntity);
         Set<String> paths = fileService.store(files);
         Announcement savedAnnouncement = this.announcementRepository.save(announcement);
