@@ -19,8 +19,8 @@ public class ImageService implements IImageService {
     private final IImageRepository imageRepository;
 
     @Override
-    public Resource getImage(Long id) throws MalformedURLException {
-        Optional<Image> image = imageRepository.findById(id);
+    public Resource getImage(String name) throws MalformedURLException {
+        Optional<Image> image = imageRepository.findByImgPath(name);
         return fileService.getFile(image.get().getImgPath());
     }
 

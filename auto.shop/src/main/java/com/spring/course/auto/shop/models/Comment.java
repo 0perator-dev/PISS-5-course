@@ -1,13 +1,9 @@
 package com.spring.course.auto.shop.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.spring.course.auto.shop.models.ids.CommentId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 

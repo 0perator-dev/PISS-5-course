@@ -9,18 +9,19 @@ import com.spring.course.auto.shop.repositories.IUserRepository;
 import com.spring.course.auto.shop.security.models.AuthenticatedUserPrincipals;
 import com.spring.course.auto.shop.services.interfaces.IUserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class UserService implements IUserService {
+
+    @Value("${image.url}")
+    private String imageUrl;
 
     private final IUserRepository userRepository;
     private final IAnnouncementRepository announcementRepository;
@@ -46,7 +47,9 @@ public class UserService implements IUserService {
         AuthenticatedUserPrincipals loggedUserDetails = (AuthenticatedUserPrincipals) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Announcement> announcements = announcementRepository.findByUserId(loggedUserDetails.getId());
         for (Announcement announcement : announcements) {
-            announcement.setImages(new HashSet<>(imageRepository.findByAnnouncementId(announcement.getId())));
+            List<Image> images = imageRepository.findByAnnouncementId(announcement.getId());
+            images.forEach(image -> image.setImgPath(imageUrl + image.getImgPath()));
+            announcement.setImages(new HashSet<>(images));
         }
         return announcements;
     }

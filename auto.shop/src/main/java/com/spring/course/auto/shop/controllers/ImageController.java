@@ -18,10 +18,10 @@ public class ImageController {
 
     private final IImageService imageService;
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<?> getImage(@PathVariable(value = "id") Long id) {
+    @GetMapping(value = "/{name}")
+    public ResponseEntity<?> getImage(@PathVariable(value = "name") String name) {
         try {
-            Resource resource = imageService.getImage(id);
+            Resource resource = imageService.getImage(name);
             return ResponseEntity.ok()
                     .header(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_JPEG_VALUE)
                     .header(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_PNG_VALUE)

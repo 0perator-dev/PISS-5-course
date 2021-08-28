@@ -6,10 +6,10 @@ import com.spring.course.auto.shop.models.User;
 import com.spring.course.auto.shop.models.entities.AnnouncementEntity;
 import com.spring.course.auto.shop.models.entities.CommentEntity;
 import com.spring.course.auto.shop.models.entities.ReferenceEntity;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
