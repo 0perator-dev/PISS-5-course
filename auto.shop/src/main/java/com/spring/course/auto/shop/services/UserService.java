@@ -1,8 +1,10 @@
 package com.spring.course.auto.shop.services;
 
 import com.spring.course.auto.shop.models.Announcement;
+import com.spring.course.auto.shop.models.Image;
 import com.spring.course.auto.shop.models.User;
 import com.spring.course.auto.shop.repositories.IAnnouncementRepository;
+import com.spring.course.auto.shop.repositories.IImageRepository;
 import com.spring.course.auto.shop.repositories.IUserRepository;
 import com.spring.course.auto.shop.security.models.AuthenticatedUserPrincipals;
 import com.spring.course.auto.shop.services.interfaces.IUserService;
@@ -10,8 +12,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +24,7 @@ public class UserService implements IUserService {
 
     private final IUserRepository userRepository;
     private final IAnnouncementRepository announcementRepository;
+    private final IImageRepository imageRepository;
 
     @Override
     public boolean existsByUsername(String username) {
@@ -38,8 +44,19 @@ public class UserService implements IUserService {
     @Override
     public List<Announcement> getAllAnnouncementsOfLoggedUser() {
         AuthenticatedUserPrincipals loggedUserDetails = (AuthenticatedUserPrincipals) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        //set image path if need
+        List<Announcement> announcements = announcementRepository.findByUserId(loggedUserDetails.getId());
+        for (Announcement announcement : announcements) {
+            announcement.setImages(new HashSet<>(imageRepository.findByAnnouncementId(announcement.getId())));
+        }
+        return announcements;
+    }
 
-        return announcementRepository.findByUserId(loggedUserDetails.getId());
+    @Override
+    public void deleteUser(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if (!user.isPresent()) {
+            throw new NoSuchElementException("There is no such user to delete.");
+        }
+        userRepository.delete(user.get());
     }
 }

@@ -14,4 +14,6 @@ public interface IUserService {
     Optional<User> findByUsername(String username);
 
     List<Announcement> getAllAnnouncementsOfLoggedUser();
+
+    void deleteUser(Long id);
 }

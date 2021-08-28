@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class ReferenceEntity {
     @NotNull
     private Long id;

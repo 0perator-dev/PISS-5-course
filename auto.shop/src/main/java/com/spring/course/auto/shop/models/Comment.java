@@ -1,6 +1,11 @@
 package com.spring.course.auto.shop.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.spring.course.auto.shop.models.ids.CommentId;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -8,6 +13,10 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "comments")
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Comment {
     @EmbeddedId
     private CommentId id = new CommentId();
@@ -17,53 +26,12 @@ public class Comment {
     @OrderBy("id DESC")
     private User user;
 
+    @Column(name = "message")
+    private String message;
+
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.REMOVE)
     @MapsId("announcementId")
     @OrderBy("id DESC")
     private Announcement announcement;
-
-    @Column(name = "message")
-    private String message;
-
-    public Comment(CommentId id, User user, Announcement announcement, String message) {
-        this.id = id;
-        this.user = user;
-        this.announcement = announcement;
-        this.message = message;
-    }
-
-    public Comment() {
-    }
-
-    public CommentId getId() {
-        return id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public Announcement getAnnouncement() {
-        return announcement;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setId(CommentId id) {
-        this.id = id;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setAnnouncement(Announcement announcement) {
-        this.announcement = announcement;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

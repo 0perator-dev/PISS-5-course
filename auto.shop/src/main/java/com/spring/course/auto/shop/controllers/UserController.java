@@ -50,4 +50,20 @@ public class UserController {
                     .body(new BadMessage(exception.getMessage()));
         }
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable(value = "id") Long id) {
+        try {
+            userService.deleteUser(id);
+            return ResponseEntity.status(HttpStatus.OK).body(null);
+        } catch (IllegalArgumentException exception) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new BadMessage(exception.getMessage()));
+        } catch (Exception exception) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new BadMessage(exception.getMessage()));
+        }
+    }
 }

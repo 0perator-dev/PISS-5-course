@@ -6,3 +6,4 @@ target/
 
 ### Project ignores ###
 /src/main/resources/application.properties
+/images/

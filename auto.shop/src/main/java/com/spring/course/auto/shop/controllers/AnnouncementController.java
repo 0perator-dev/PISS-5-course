@@ -1,5 +1,7 @@
 package com.spring.course.auto.shop.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.course.auto.shop.models.Announcement;
 import com.spring.course.auto.shop.models.entities.AnnouncementEntity;
 import com.spring.course.auto.shop.services.AnnouncementService;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -64,12 +67,11 @@ public class AnnouncementController {
         return ResponseEntity.ok().body(this.mappingManager.mapToAnnouncementEntity(announcement));
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> post(@Valid @RequestBody AnnouncementEntity announcementEntity) {
-        Announcement announcement = this.mappingManager.mapToAnnouncement(announcementEntity);
-
+    @PostMapping
+    public ResponseEntity<?> post(@RequestParam("object") String announcementStr, @RequestParam("files") MultipartFile[] files) throws JsonProcessingException {
         try {
-            this.announcementService.post(announcement);
+            AnnouncementEntity announcementEntity = new ObjectMapper().readValue(announcementStr, AnnouncementEntity.class);
+            this.announcementService.post(announcementEntity, files);
         } catch (Exception exception) {
             return ResponseEntity.badRequest().body(new BadMessage(exception.getMessage()));
         }
