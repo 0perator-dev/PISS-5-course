@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import {HttpService} from "../services/http.service";
 
 @Component({
     selector: "app-login",
@@ -7,10 +8,11 @@ import { Component, OnInit } from "@angular/core";
 })
 export class LoginComponent implements OnInit {
 
-    constructor() {
+    constructor(private httpService: HttpService) {
     }
 
     ngOnInit(): void {
+        this.httpService.getLoginView();
     }
 
 }
