@@ -52,12 +52,17 @@ public class AnnouncementService {
         }
     }
 
-    public void put(@NotNull Announcement announcement) {
+    public void put(@NotNull Long id, @NotNull Announcement announcement) {
         if (!this.announcementRepository.existsById(announcement.getId())) {
             throw new NoSuchElementException("Can't find such announcement for modification");
         }
 
-        this.announcementRepository.save(announcement);
+        Announcement repoAnnouncement = this.announcementRepository.findById(id).get();
+
+        repoAnnouncement.setDescription(announcement.getDescription());
+        repoAnnouncement.setTitle(announcement.getTitle());
+
+        this.announcementRepository.save(repoAnnouncement);
     }
 
     public void deleteById(Long id) {

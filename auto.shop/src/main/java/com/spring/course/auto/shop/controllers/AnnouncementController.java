@@ -80,12 +80,13 @@ public class AnnouncementController {
         return ResponseEntity.ok().body(null);
     }
 
+    @Valid
     @PutMapping("{id}")
-    public ResponseEntity<?> put(@Valid @NotNull @RequestBody AnnouncementEntity entity) {
+    public ResponseEntity<?> put(@PathVariable("id") @NotNull Long id, @NotNull @RequestBody AnnouncementEntity entity) {
         Announcement announcement = this.mappingManager.mapToAnnouncement(entity);
 
         try {
-            this.announcementService.put(announcement);
+            this.announcementService.put(id, announcement);
         } catch (Exception exception) {
             return ResponseEntity.badRequest().body(new BadMessage(exception.getMessage()));
         }

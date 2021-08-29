@@ -33,10 +33,12 @@ public class CommentService {
     }
 
     @Valid
-    public void updateComment(@NotNull Comment comment) throws IllegalArgumentException {
+    public void updateComment(@NotNull Long id, @NotNull Comment comment) throws IllegalArgumentException {
         isCommentExist(comment.getId());
+        Comment repoComment = this.commentRepository.findById(id).get();
+        repoComment.setMessage(comment.getMessage());
 
-        this.commentRepository.save(comment);
+        this.commentRepository.save(repoComment);
     }
 
     @Valid

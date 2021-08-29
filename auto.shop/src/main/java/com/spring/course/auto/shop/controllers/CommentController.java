@@ -64,9 +64,9 @@ public class CommentController {
 
     @Valid
     @PutMapping("{commentId}")
-    public ResponseEntity<?> putComment(@RequestBody CommentEntity commentEntity) {
+    public ResponseEntity<?> putComment(@PathVariable("commentId") Long id, @RequestBody CommentEntity commentEntity) {
         try {
-            this.commentService.updateComment(this.mappingManager.mapToComment(commentEntity));
+            this.commentService.updateComment(id, this.mappingManager.mapToComment(commentEntity));
         } catch (IllegalArgumentException exception) {
             return ResponseEntity.badRequest().body(new BadMessage(exception.getMessage()));
         }
