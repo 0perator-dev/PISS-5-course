@@ -3,6 +3,8 @@ package com.spring.course.auto.shop.services;
 import com.spring.course.auto.shop.models.Announcement;
 import com.spring.course.auto.shop.models.Image;
 import com.spring.course.auto.shop.models.User;
+import com.spring.course.auto.shop.models.dtos.requests.UserToUpdate;
+import com.spring.course.auto.shop.models.dtos.responces.UserDetails;
 import com.spring.course.auto.shop.repositories.IAnnouncementRepository;
 import com.spring.course.auto.shop.repositories.IImageRepository;
 import com.spring.course.auto.shop.repositories.IUserRepository;
@@ -10,6 +12,7 @@ import com.spring.course.auto.shop.security.models.AuthenticatedUserPrincipals;
 import com.spring.course.auto.shop.services.interfaces.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +55,29 @@ public class UserService implements IUserService {
             announcement.setImages(new HashSet<>(images));
         }
         return announcements;
+    }
+
+    @Override
+    public UserDetails getUserDetails(Long id) {
+        User user = userRepository.findById(id).get();
+        return new UserDetails(user.getUsername(), user.getName(), user.getRoles());
+    }
+
+    @Override
+    public Iterable<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public void updateUserDetails(Long id, UserToUpdate user) {
+        if (!userRepository.existsById(id)) {
+            throw new NoSuchElementException("Can't find such гыук for modification");
+        }
+        User userToUpdate = userRepository.findById(id).get();
+        userToUpdate.setUsername(user.getUsername());
+        userToUpdate.setPassword(user.getPassword());
+        userToUpdate.setName(user.getName());
+        userRepository.save(userToUpdate);
     }
 
     @Override

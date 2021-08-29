@@ -28,6 +28,7 @@ public class User {
     @Size(max = 50)
     private String username;
 
+    @JsonIgnore
     @Column(nullable = false, length = 60)
     @Size(max = 60)
     private String password;
