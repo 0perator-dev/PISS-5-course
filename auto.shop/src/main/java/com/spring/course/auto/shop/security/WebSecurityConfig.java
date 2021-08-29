@@ -64,11 +64,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/bootstrap-5.1.0-dist/**").permitAll()
                 .antMatchers("/favicon.ico").permitAll()
+                .antMatchers("/registration").permitAll()
                 .anyRequest()
                 .authenticated().and()
                 .formLogin()
-                .loginPage("/login")
-                .loginPage("/registration");
+                .loginPage("/login");
 
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
