@@ -1,5 +1,6 @@
 package com.spring.course.auto.shop.security;
 
+import com.spring.course.auto.shop.helpers.AuthSuccessHandler;
 import com.spring.course.auto.shop.security.jwt.AuthEntryPointJwt;
 import com.spring.course.auto.shop.security.jwt.AuthTokenFilter;
 import com.spring.course.auto.shop.security.services.UserDetailsServiceImpl;
@@ -28,6 +29,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
+
+    @Autowired
+    private AuthSuccessHandler authSuccessHandler;
 
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
@@ -68,9 +72,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated().and()
                 .formLogin()
-                .loginPage("/login");
-
+                .loginPage("/login")
+                .successHandler(authSuccessHandler)
+                .failureUrl("/login-error")
+                .permitAll().and().formLogin();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
+
+
 }
