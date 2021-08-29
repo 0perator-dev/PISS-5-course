@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Login User</title>
 
     <link th:href="@{/css/my.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/bootstrap-5.1.0-dist/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
@@ -21,6 +21,11 @@
                     <div th:if="${loginError}" class="alert alert-danger col-12" role="alert">
                         Wrong user or password
                     </div>
+
+                    <div th:if="${loginSuccess}" class="alert alert-success col-12" role="alert">
+                        Login is successes.
+                    </div>
+
                     <div class="col-12">
                         <label for="username">Username</label>
                         <input id="username" type="text" name="username" class="form-control" placeholder="Username">

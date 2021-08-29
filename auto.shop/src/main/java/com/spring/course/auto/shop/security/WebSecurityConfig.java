@@ -75,6 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .successHandler(authSuccessHandler)
                 .failureUrl("/login-error")
+                .successForwardUrl("/login-success")
                 .permitAll().and().formLogin();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

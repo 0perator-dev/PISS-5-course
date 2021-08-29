@@ -4,6 +4,7 @@ import com.spring.course.auto.shop.models.enums.ERole;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Set;
@@ -24,4 +25,14 @@ public class UserToRegister {
     private String name;
 
     private Set<ERole> roles;
+
+    public boolean isValid() {
+        return this.notNullAndNotEmptyAndMin(this.name, 6)
+                && this.notNullAndNotEmptyAndMin(password, 6)
+                && this.notNullAndNotEmptyAndMin(username, 6);
+    }
+
+    private boolean notNullAndNotEmptyAndMin(String string, int min) {
+        return string != null && string.length() >= min;
+    }
 }

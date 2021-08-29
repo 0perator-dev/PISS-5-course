@@ -23,6 +23,10 @@ export class HttpService {
                     document.getElementsByTagName("head")[0].appendChild(link);
                 }
 
+                const formTag = htmlElement.getElementsByTagName("form")[0];
+                const submitLink = formTag.getAttribute("action");
+                formTag.setAttribute("action",  "http://localhost:8080" + submitLink);
+
                 bodyElements[0].innerHTML = htmlElement.getElementsByTagName("body")[0].innerHTML;
             }, (error) => {
 
@@ -43,6 +47,10 @@ export class HttpService {
                     link.setAttribute("href", newHref);
                     document.getElementsByTagName("head")[0].appendChild(link);
                 }
+
+                const formTag = htmlElement.getElementsByTagName("form")[0];
+                const submitLink = formTag.getAttribute("action");
+                formTag.setAttribute("action",  "http://localhost:8080" + submitLink);
 
                 bodyElements[0].innerHTML = htmlElement.getElementsByTagName("body")[0].innerHTML;
             }, (error) => {

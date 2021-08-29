@@ -21,10 +21,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static com.spring.course.auto.shop.models.enums.ERole.ROLE_USER;
 
 @Service
 @RequiredArgsConstructor
@@ -43,11 +46,17 @@ public class AuthService implements IAuthService {
             throw new IllegalArgumentException("Username is already taken!");
         }
 
+        if(userToRegister.getRoles() == null) {
+            Set<ERole> roles = new HashSet<>();
+            roles.add(ROLE_USER);
+            userToRegister.setRoles(roles);
+        }
+
         Set<Role> roles = new HashSet<>();
         userToRegister.getRoles().forEach(role -> {
             switch (role) {
                 case ROLE_USER:
-                    Role adminRole = roleRepository.findByName(ERole.ROLE_USER)
+                    Role adminRole = roleRepository.findByName(ROLE_USER)
                             .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                     roles.add(adminRole);
                     break;
