@@ -8,12 +8,16 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpClientModule } from "@angular/common/http";
 import { LoginComponent } from "./login/login.component";
 import { RegistrationComponent } from './registration/registration.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AnnouncementCardComponent } from './common-components/announcement-card/announcement-card.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
-        RegistrationComponent
+        RegistrationComponent,
+        DashboardComponent,
+        AnnouncementCardComponent
     ],
     imports: [
         BrowserModule,

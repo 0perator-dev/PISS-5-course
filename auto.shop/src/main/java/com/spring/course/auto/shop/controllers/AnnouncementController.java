@@ -26,6 +26,7 @@ import java.util.NoSuchElementException;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/api/announcements", produces = MediaType.APPLICATION_JSON_VALUE)
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class AnnouncementController {
     private final AnnouncementService announcementService;
     private final MappingManager mappingManager;

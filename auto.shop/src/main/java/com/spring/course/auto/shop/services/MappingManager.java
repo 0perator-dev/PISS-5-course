@@ -2,16 +2,20 @@ package com.spring.course.auto.shop.services;
 
 import com.spring.course.auto.shop.models.Announcement;
 import com.spring.course.auto.shop.models.Comment;
+import com.spring.course.auto.shop.models.Image;
 import com.spring.course.auto.shop.models.User;
 import com.spring.course.auto.shop.models.entities.AnnouncementEntity;
 import com.spring.course.auto.shop.models.entities.CommentEntity;
+import com.spring.course.auto.shop.models.entities.ImageEntity;
 import com.spring.course.auto.shop.models.entities.ReferenceEntity;
 import org.springframework.stereotype.Service;
 
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class MappingManager {
@@ -24,6 +28,10 @@ public class MappingManager {
 
         ReferenceEntity owner = new ReferenceEntity(source.getUser().getId(), source.getUser().getName());
         announcementEntity.setOwner(owner);
+
+        if (!source.getImages().isEmpty()) {
+            announcementEntity.setImages(this.mapToImageEntities(source.getImages()));
+        }
 
         return announcementEntity;
     }
@@ -88,5 +96,22 @@ public class MappingManager {
         comment.setUser(user);
 
         return comment;
+    }
+
+    public ImageEntity mapToImageEntity(Image source) {
+        ImageEntity image = new ImageEntity();
+        image.setImgPath(source.getImgPath());
+
+        return image;
+    }
+
+    public Set<ImageEntity> mapToImageEntities(Set<Image> source) {
+        Set<ImageEntity> images = new HashSet<>();
+
+        source.forEach(sourceImage -> {
+            images.add(this.mapToImageEntity(sourceImage));
+        });
+
+        return images;
     }
 }

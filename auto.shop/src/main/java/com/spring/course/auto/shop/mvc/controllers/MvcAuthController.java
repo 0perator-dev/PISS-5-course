@@ -1,20 +1,11 @@
 package com.spring.course.auto.shop.mvc.controllers;
 
 import com.spring.course.auto.shop.models.dtos.requests.UserToRegister;
-import com.spring.course.auto.shop.models.dtos.responces.AuthenticatedUser;
-import com.spring.course.auto.shop.services.AuthService;
 import com.spring.course.auto.shop.services.interfaces.IAuthService;
-import com.spring.course.auto.shop.types.BadMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.TransactionSystemException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletResponse;
 
 @CrossOrigin(origins = "*", maxAge = 3600, exposedHeaders = {"Authorization"})
 @Controller
