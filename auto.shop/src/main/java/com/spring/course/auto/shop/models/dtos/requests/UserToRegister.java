@@ -1,6 +1,7 @@
 package com.spring.course.auto.shop.models.dtos.requests;
 
 import com.spring.course.auto.shop.models.enums.ERole;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.util.Set;
 
 @Data
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class UserToRegister {
     @NotBlank(message = "Username should not be blank")
     @Size(min = 6, max = 20, message = "Invalid username length")

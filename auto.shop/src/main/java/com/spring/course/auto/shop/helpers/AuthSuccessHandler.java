@@ -18,7 +18,8 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
     JwtUtils jwtUtils;
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
+                                        Authentication authentication) throws IOException, ServletException {
         final String jwt = jwtUtils.generateJwtToken(authentication);
         Cookie cookie = new Cookie("Authentication", jwt);
         httpServletResponse.addCookie(cookie);

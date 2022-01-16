@@ -1,9 +1,14 @@
 package com.spring.course.auto.shop.security;
 
 import com.spring.course.auto.shop.helpers.AuthSuccessHandler;
+import com.spring.course.auto.shop.models.dtos.requests.UserToRegister;
+import com.spring.course.auto.shop.models.oauth2.CustomOAuth2User;
+import com.spring.course.auto.shop.models.oauth2.CustomOAuth2UserService;
 import com.spring.course.auto.shop.security.jwt.AuthEntryPointJwt;
 import com.spring.course.auto.shop.security.jwt.AuthTokenFilter;
 import com.spring.course.auto.shop.security.services.UserDetailsServiceImpl;
+import com.spring.course.auto.shop.services.interfaces.IAuthService;
+import com.spring.course.auto.shop.services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,9 +19,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
@@ -32,6 +45,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AuthSuccessHandler authSuccessHandler;
+
+    @Autowired
+    private CustomOAuth2UserService oauthUserService;
+
+    @Autowired
+    private IAuthService authService;
+
+    @Autowired
+    private IUserService userService;
 
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
@@ -57,6 +79,39 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/oauth/**").permitAll()
+                .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/image/**").permitAll()
+                .antMatchers("/registration").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/css/**").permitAll()
+                .antMatchers("/api/announcement**").permitAll()
+                .antMatchers("/bootstrap-5.1.0-dist/**").permitAll()
+                .antMatchers("/favicon.ico").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .oauth2Login().defaultSuccessUrl("/login-success")
+                    .userInfoEndpoint().userService(oauthUserService)
+                .and()
+                .successHandler(new AuthenticationSuccessHandler() {
+
+                    @Override
+                    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+                                                        Authentication authentication) throws IOException, ServletException {
+
+                        DefaultOidcUser oauthUser = (DefaultOidcUser) authentication.getPrincipal();
+                        String email = oauthUser.getAttribute("email");
+                        String fullName = oauthUser.getAttribute("name");
+                        String name = oauthUser.getAttribute("given_name");
+                        if (!userService.existsByUsername(email)) {
+                            authService.register(new UserToRegister(fullName, email, name, null));
+                        }
+                        response.sendRedirect("/login-success");
+                    }
+                });
+
+/*        http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
@@ -68,14 +123,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/bootstrap-5.1.0-dist/**").permitAll()
                 .antMatchers("/favicon.ico").permitAll()
                 .antMatchers("/registration").permitAll()
-                .anyRequest()
-                .authenticated().and()
+                .anyRequest().authenticated()
+                .and()
                 .formLogin()
                 .loginPage("/login")
                 .successHandler(authSuccessHandler)
                 .failureUrl("/login-error")
                 .successForwardUrl("/login-success")
-                .permitAll().and().formLogin();
+                .permitAll().and().formLogin();*/
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
