@@ -91,8 +91,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/favicon.ico").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .oauth2Login().defaultSuccessUrl("/login-success")
-                    .userInfoEndpoint().userService(oauthUserService)
+                .oauth2Login()
+                .defaultSuccessUrl("/login-success")
+                .userInfoEndpoint()
+                .userService(oauthUserService)
                 .and()
                 .successHandler(new AuthenticationSuccessHandler() {
 
@@ -110,27 +112,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         response.sendRedirect("/login-success");
                     }
                 });
-
-/*        http.cors().and().csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests()
-                .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/image/**").permitAll()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/css/**").permitAll()
-                .antMatchers("/api/announcement**").permitAll()
-                .antMatchers("/bootstrap-5.1.0-dist/**").permitAll()
-                .antMatchers("/favicon.ico").permitAll()
-                .antMatchers("/registration").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .successHandler(authSuccessHandler)
-                .failureUrl("/login-error")
-                .successForwardUrl("/login-success")
-                .permitAll().and().formLogin();*/
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
