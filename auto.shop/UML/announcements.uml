@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>71dbf74e-9fbc-4afd-9562-4c0eb89adb91.TABLE:autoshop.public.announcements</OriginalElement>
+  <nodes>
+    <node x="234.00000000000003" y="348.0">71dbf74e-9fbc-4afd-9562-4c0eb89adb91.TABLE:autoshop.public.comments</node>
+    <node x="115.23611111111111" y="174.0">71dbf74e-9fbc-4afd-9562-4c0eb89adb91.TABLE:autoshop.public.announcements</node>
+    <node x="397.98611111111114" y="196.5">71dbf74e-9fbc-4afd-9562-4c0eb89adb91.TABLE:autoshop.public.user_roles</node>
+    <node x="241.81944444444446" y="0.0">71dbf74e-9fbc-4afd-9562-4c0eb89adb91.TABLE:autoshop.public.users</node>
+    <node x="26.0" y="359.0">71dbf74e-9fbc-4afd-9562-4c0eb89adb91.TABLE:autoshop.public.image</node>
+    <node x="434.81944444444446" y="22.0">71dbf74e-9fbc-4afd-9562-4c0eb89adb91.TABLE:autoshop.public.roles</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="71dbf74e-9fbc-4afd-9562-4c0eb89adb91.TABLE:autoshop.public.image" target="71dbf74e-9fbc-4afd-9562-4c0eb89adb91.TABLE:autoshop.public.announcements" relationship="REFERENCES">
+      <point x="0.0" y="-50.0" />
+      <point x="120.0" y="322.0" />
+      <point x="210.23611111111111" y="322.0" />
+      <point x="0.0" y="61.0" />
+    </edge>
+    <edge source="71dbf74e-9fbc-4afd-9562-4c0eb89adb91.TABLE:autoshop.public.user_roles" target="71dbf74e-9fbc-4afd-9562-4c0eb89adb91.TABLE:autoshop.public.users" relationship="REFERENCES">
+      <point x="-30.000000000000057" y="-38.5" />
+      <point x="427.9861111111111" y="148.0" />
+      <point x="328.31944444444446" y="148.0" />
+      <point x="0.0" y="61.0" />
+    </edge>
+    <edge source="71dbf74e-9fbc-4afd-9562-4c0eb89adb91.TABLE:autoshop.public.comments" target="71dbf74e-9fbc-4afd-9562-4c0eb89adb91.TABLE:autoshop.public.users" relationship="REFERENCES">
+      <point x="47.0" y="-61.0" />
+      <point x="375.0" y="322.0" />
+      <point x="333.0" y="322.0" />
+      <point x="333.0" y="148.0" />
+      <point x="328.31944444444446" y="148.0" />
+      <point x="0.0" y="61.0" />
+    </edge>
+    <edge source="71dbf74e-9fbc-4afd-9562-4c0eb89adb91.TABLE:autoshop.public.user_roles" target="71dbf74e-9fbc-4afd-9562-4c0eb89adb91.TABLE:autoshop.public.roles" relationship="REFERENCES">
+      <point x="29.999999999999943" y="-38.5" />
+      <point x="487.9861111111111" y="148.0" />
+      <point x="506.81944444444446" y="148.0" />
+      <point x="0.0" y="39.0" />
+    </edge>
+    <edge source="71dbf74e-9fbc-4afd-9562-4c0eb89adb91.TABLE:autoshop.public.announcements" target="71dbf74e-9fbc-4afd-9562-4c0eb89adb91.TABLE:autoshop.public.users" relationship="REFERENCES">
+      <point x="0.0" y="-61.0" />
+      <point x="210.23611111111111" y="148.0" />
+      <point x="328.31944444444446" y="148.0" />
+      <point x="0.0" y="61.0" />
+    </edge>
+    <edge source="71dbf74e-9fbc-4afd-9562-4c0eb89adb91.TABLE:autoshop.public.comments" target="71dbf74e-9fbc-4afd-9562-4c0eb89adb91.TABLE:autoshop.public.announcements" relationship="REFERENCES">
+      <point x="-47.0" y="-61.0" />
+      <point x="281.0" y="322.0" />
+      <point x="210.23611111111111" y="322.0" />
+      <point x="0.0" y="61.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="false" x="289.5" y="235.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Columns</Category>
+    <Category>Comments</Category>
+    <Category>Key columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+
