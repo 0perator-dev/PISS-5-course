@@ -6,25 +6,21 @@ import { AppComponent } from "./app.component";
 import { ClarityModule } from "@clr/angular";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpClientModule } from "@angular/common/http";
-import { LoginComponent } from "./login/login.component";
-import { RegistrationComponent } from './registration/registration.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { AnnouncementCardComponent } from './common-components/announcement-card/announcement-card.component';
+import { LoginComponent } from './login/login.component';
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [
         AppComponent,
-        LoginComponent,
-        RegistrationComponent,
-        DashboardComponent,
-        AnnouncementCardComponent
+        LoginComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         ClarityModule,
         BrowserAnimationsModule,
-        HttpClientModule
+        HttpClientModule,
+        ReactiveFormsModule
     ],
     providers: [],
     bootstrap: [AppComponent]

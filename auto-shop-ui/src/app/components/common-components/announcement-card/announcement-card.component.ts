@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { Announcement } from "../../types/announcement";
-import { ServerUrl } from "../../services/http.service";
+import { Announcement } from "../../../types/announcement";
+import { ServerUrl } from "../../../services/http.service";
 
 @Component({
     selector: "app-announcement-card",

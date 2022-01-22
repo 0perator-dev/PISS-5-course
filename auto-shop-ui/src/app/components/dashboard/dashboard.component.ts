@@ -20,8 +20,7 @@ export class DashboardComponent implements OnInit {
     }
 
     private fetchAnnouncements() {
-        // @ts-ignore
-        const request = new HttpRequest(ApiEndpoints.AnnouncementsList.method, ApiEndpoints.AnnouncementsList.url);
+        const request = new HttpRequest(ApiEndpoints.AnnouncementsList.method, ApiEndpoints.AnnouncementsList.url, null);
         this.http.performRequest<QueryResponse<Announcement>>(request)
             .subscribe((response: HttpResponse<QueryResponse<Announcement>>) => {
                 if (!response.body ) {
