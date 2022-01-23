@@ -1,7 +1,8 @@
 import { ERole } from "./ERole";
 
-export interface AuthenticatedUser {
-    id: number;
+export interface UserToRegister {
     username: string;
+    password: string;
+    name: string;
     roles: Array<ERole>;
 }

@@ -3,8 +3,10 @@ import { HttpClient, HttpResponse } from "@angular/common/http";
 import { ServerUrl } from "./http.service";
 import { LoggedUser } from "../types/user/logged-user";
 import { tap } from "rxjs/operators";
+import { UserToRegister } from "../types/user/user-to-register";
 
 const LOGIN_ENDPOINT = ServerUrl + '/api/auth/login';
+const REGISTER_ENDPOINT = ServerUrl + '/api/auth/register';
 const JWT_TOKEN = 'JWT_TOKEN';
 
 @Injectable({
@@ -22,6 +24,11 @@ export class LoginService {
 
     public logout() {
         localStorage.removeItem(JWT_TOKEN);
+    }
+
+    public register(user: UserToRegister) {
+        return this.http.post<LoggedUser>(REGISTER_ENDPOINT, user, {observe: "response"})
+            .pipe(tap(this.setSession));
     }
 
     public isUserLogged(): boolean {

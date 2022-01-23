@@ -7,17 +7,34 @@
         <div class="login-group">
             <clr-input-container>
                 <label class="clr-sr-only">Username</label>
-                <input type="text" name="username" clrInput placeholder="Username" [formControlName]="FormControls.username" />
+                <input type="text" name="username" clrInput placeholder="Username"
+                       [formControlName]="FormControls.username"/>
             </clr-input-container>
+
+            <clr-input-container *ngIf="isRegisterPage">
+                <label class="clr-sr-only">Name</label>
+                <input type="text" name="username" clrInput placeholder="Username"
+                       [formControlName]="FormControls.name"/>
+            </clr-input-container>
+
+            <clr-select-container *ngIf="isRegisterPage">
+                <label class="clr-sr-only">User Role</label>
+                <select clrSelect name="type" [formControlName]="FormControls.role">
+                    <option value="0">Local</option>
+                    <option value="1">Admin</option>
+                </select>
+            </clr-select-container>
+
             <clr-password-container>
                 <label class="clr-sr-only">Password</label>
-                <input type="password" name="password" clrPassword placeholder="Password" [formControlName]="FormControls.password" />
+                <input type="password" name="password" clrPassword placeholder="Password"
+                       [formControlName]="FormControls.password"/>
             </clr-password-container>
 
             <clr-alert clrAlertType="danger" *ngIf="errorMessage">{{errorMessage}}</clr-alert>
 
-            <button type="submit" class="btn btn-primary" (click)="login()">NEXT</button>
-            <a [routerLink]="'register'" class="signup">Register</a>
+            <button type="submit" class="btn btn-primary" (click)="submit()">NEXT</button>
+            <a *ngIf="!isRegisterPage" [routerLink]="'/register'" class="signup">Register</a>
         </div>
     </form>
 </div>
