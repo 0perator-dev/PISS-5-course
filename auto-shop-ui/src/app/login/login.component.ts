@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { FrontEndUrl, LoginService } from "../services/login.service";
+import { LoginService } from "../services/login.service";
 import { catchError } from "rxjs/operators";
 import { of } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { UserToRegister } from "../types/user/user-to-register";
+import { FrontEndUrl, ServerUrl } from "../resources/application.properties";
 
 const FormControls = {
     username: "username",
@@ -62,7 +63,7 @@ export class LoginComponent {
 
     public loginWithGoogle() {
         window.location.href = `
-            http://localhost:8080/oauth2/authorization/google?response_type=code&scope=openid%20write%20read
+            ${ServerUrl}/oauth2/authorization/google?response_type=code&scope=openid%20write%20read
         `
             // + "&client_id=" + this.loginService.clientId
             + '&redirect_uri='+ FrontEndUrl;

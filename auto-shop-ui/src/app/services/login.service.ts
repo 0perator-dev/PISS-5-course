@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from "@angular/common/http";
-import { ServerUrl } from "./http.service";
 import { LoggedUser } from "../types/user/logged-user";
 import { tap } from "rxjs/operators";
 import { UserToRegister } from "../types/user/user-to-register";
+import { ServerUrl } from "../resources/application.properties";
 
 const LOGIN_ENDPOINT = ServerUrl + '/api/auth/login';
 const REGISTER_ENDPOINT = ServerUrl + '/api/auth/register';
 const JWT_TOKEN = 'JWT_TOKEN';
-export const FrontEndUrl = "http://localhost:4200"
 
 @Injectable({
     providedIn: 'root'

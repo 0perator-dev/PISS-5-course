@@ -1,8 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpEvent, HttpRequest, HttpResponse } from "@angular/common/http";
 import { Observable } from "rxjs";
-
-export const ServerUrl = "http://localhost:8080";
+import { ServerUrl } from "../resources/application.properties";
 
 export enum Methods {
     GET = "GET",
