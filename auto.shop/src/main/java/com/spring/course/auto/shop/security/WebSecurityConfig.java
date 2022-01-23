@@ -106,7 +106,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         String fullName = oauthUser.getAttribute("name");
                         String name = oauthUser.getAttribute("given_name");
                         if (!userService.existsByUsername(email)) {
-                            authService.register(new UserToRegister(fullName, email, name, null));
+                            authService.register(new UserToRegister(email, fullName, name, null));
                         }
                         response.sendRedirect("/login-success");
                     }
