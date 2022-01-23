@@ -13,7 +13,12 @@ const declarations = [
 ];
 
 const routes: Routes = [
-    {path: "", component: DashboardComponent}
+    {
+        path: "", component: MainContainerComponent, children: [
+            { path: '', redirectTo: "dashboard", pathMatch: "full" },
+            { path: "dashboard", component: DashboardComponent }
+        ]
+    },
 ]
 
 @NgModule({

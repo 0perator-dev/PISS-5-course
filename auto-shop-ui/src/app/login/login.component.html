@@ -35,6 +35,8 @@
 
             <button type="submit" class="btn btn-primary" (click)="submit()">NEXT</button>
             <a *ngIf="!isRegisterPage" [routerLink]="'/register'" class="signup">Register</a>
+            <button class="btn btn-secondary" (click)="loginWithGoogle()">Login with Google</button>
+<!--            <a *ngIf="!isRegisterPage" href="http://localhost:8080/oauth2/authorization/google" class="signup">Login with Google</a>-->
         </div>
     </form>
 </div>

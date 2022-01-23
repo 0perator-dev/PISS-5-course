@@ -8,6 +8,7 @@ import { UserToRegister } from "../types/user/user-to-register";
 const LOGIN_ENDPOINT = ServerUrl + '/api/auth/login';
 const REGISTER_ENDPOINT = ServerUrl + '/api/auth/register';
 const JWT_TOKEN = 'JWT_TOKEN';
+export const FrontEndUrl = "http://localhost:4200"
 
 @Injectable({
     providedIn: 'root'

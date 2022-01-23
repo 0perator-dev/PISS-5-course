@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { LoginService } from "../services/login.service";
+import { FrontEndUrl, LoginService } from "../services/login.service";
 import { catchError } from "rxjs/operators";
 import { of } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { UserToRegister } from "../types/user/user-to-register";
 
 const FormControls = {
@@ -29,7 +29,6 @@ export class LoginComponent {
         private formBuilder: FormBuilder,
         private loginService: LoginService,
         private router: Router,
-        private route: ActivatedRoute
     ) {
         console.log(this.router);
         this.isRegisterPage = this.router.url.indexOf("register") > -1;
@@ -59,6 +58,14 @@ export class LoginComponent {
         } else {
             this.login();
         }
+    }
+
+    public loginWithGoogle() {
+        window.location.href = `
+            http://localhost:8080/oauth2/authorization/google?response_type=code&scope=openid%20write%20read
+        `
+            // + "&client_id=" + this.loginService.clientId
+            + '&redirect_uri='+ FrontEndUrl;
     }
 
     private login() {
