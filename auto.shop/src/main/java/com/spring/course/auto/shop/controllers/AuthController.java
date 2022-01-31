@@ -48,7 +48,6 @@ public class AuthController {
         }
     }
 
-    //@PreAuthorize("hasRole('USER') or hasRole('MODERATOR')")
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> login(@Valid @RequestBody UserToLogin loginRequest) {
         try {

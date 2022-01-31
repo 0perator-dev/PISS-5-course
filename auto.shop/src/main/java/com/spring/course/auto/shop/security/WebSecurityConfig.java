@@ -1,7 +1,9 @@
 package com.spring.course.auto.shop.security;
 
 import com.spring.course.auto.shop.helpers.AuthSuccessHandler;
+import com.spring.course.auto.shop.models.dtos.requests.UserToLogin;
 import com.spring.course.auto.shop.models.dtos.requests.UserToRegister;
+import com.spring.course.auto.shop.models.dtos.responces.LoggedUser;
 import com.spring.course.auto.shop.models.oauth2.CustomOAuth2User;
 import com.spring.course.auto.shop.models.oauth2.CustomOAuth2UserService;
 import com.spring.course.auto.shop.security.jwt.AuthEntryPointJwt;
@@ -27,6 +29,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -89,7 +92,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/announcement**").permitAll()
                 .antMatchers("/bootstrap-5.1.0-dist/**").permitAll()
                 .antMatchers("/favicon.ico").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest()
+                .authenticated()
                 .and()
                 .oauth2Login()
                 .userInfoEndpoint()
@@ -108,7 +112,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         if (!userService.existsByUsername(email)) {
                             authService.register(new UserToRegister(email, fullName, name, null));
                         }
-                        response.sendRedirect("/login-success");
+
+                        UserToLogin loginRequest = new UserToLogin(email, fullName);
+                        LoggedUser loginResponse = authService.login(loginRequest);
+
+                        Cookie cookie = new Cookie("JWT_TOKEN", loginResponse.getToken());
+                        cookie.setPath("");
+
+                        response.addCookie(cookie);
+                        response.sendRedirect("http://localhost:4200");
                     }
                 });
 
