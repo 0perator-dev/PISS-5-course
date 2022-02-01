@@ -20,8 +20,8 @@
             <clr-select-container *ngIf="isRegisterPage">
                 <label class="clr-sr-only">User Role</label>
                 <select clrSelect name="type" [formControlName]="FormControls.role">
-                    <option value="0">Local</option>
-                    <option value="1">Admin</option>
+                    <option value="ROLE_USER">Local</option>
+                    <option value="ROLE_ADMINISTRATOR">Admin</option>
                 </select>
             </clr-select-container>
 

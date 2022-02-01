@@ -76,6 +76,7 @@ public class UserController {
     }
 
     @PutMapping("{id}")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     public ResponseEntity<?> put(@PathVariable(value = "id") String id, @Valid @NotNull @RequestBody UserToUpdate user) {
         try {
             this.userService.updateUserDetails(Long.parseLong(id), user);
@@ -87,6 +88,7 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     public ResponseEntity<?> deleteUser(@PathVariable(value = "id") Long id) {
         try {
             userService.deleteUser(id);
